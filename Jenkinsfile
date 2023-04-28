@@ -76,7 +76,7 @@ pipeline{
             sh 'docker login -u kt0111 -p ${DOCKERHUB_PASSWORD}'
             sh 'docker image push kt0111/$JOB_NAME:v1.$BUILD.ID'
             sh 'docker image push kt0111/$JOB_NAME:latest'
-          }
+         
         }
       }
     }
