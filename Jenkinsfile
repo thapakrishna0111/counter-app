@@ -1,4 +1,4 @@
-pipeline{
+epipeline{
   agent any
     stages{
       stage('git checkout'){
@@ -70,6 +70,18 @@ pipeline{
           }
         }
       }
+    stage('Push image to DockerHub'){
+      steps{
+        script {
+          withCredentials([string(credentialsId: 'docker_hub_credential', variable: 'docker_hub_credential')]) {
+            sh 'docker login -u kt0111 -p $(dockerhub_cred)'
+            sh 'docker image push kt0111/$JOB_NAME:v1.$BUILD.ID'
+            sh 'docker image push kt0111/$JOB_NAME:latest'
+          }
+        }
+      }
+    }
+
     }
 
 }
